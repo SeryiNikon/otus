@@ -9,8 +9,6 @@ def power_numbers(*numbers, power=2):
     for num in numbers:
         results.append(num ** power)
     return results
-    >>> power_numbers(1, 2, 5, 7)
-    <<< [1, 4, 25, 49]
 
 
 def power_numbers(*numbers):

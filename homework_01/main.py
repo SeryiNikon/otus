@@ -4,13 +4,6 @@
 """
 
 
-def power_numbers(*numbers, power=2):
-    results = []
-    for num in numbers:
-        results.append(num ** power)
-    return results
-
-
 def power_numbers(*numbers):
     return list(map(lambda x: x ** 2, numbers))
 

@@ -4,29 +4,40 @@
 """
 
 
-def power_numbers():
-    """
-    функция, которая принимает N целых чисел,
-    и возвращает список квадратов этих чисел
+def power_numbers(*numbers, power=2):
+    results = []
+    for num in numbers:
+        results.append(num ** power)
+    return results
     >>> power_numbers(1, 2, 5, 7)
     <<< [1, 4, 25, 49]
-    """
+
+
+def power_numbers(*numbers):
+    return list(map(lambda x: x ** 2, numbers))
+
 
 
 # filter types
+def is_prime(num):
+    f=[]
+    for i in num:
+        if i==0 or i==1:
+            f.append(i)
+        for a in range(2, i):
+            if i % a == 0:
+                f.append(i)
+                break
+    return list(filter(lambda x: x not in f, num))
+
 ODD = "odd"
 EVEN = "even"
 PRIME = "prime"
 
-
-def filter_numbers():
-    """
-    функция, которая на вход принимает список из целых чисел,
-    и возвращает только чётные/нечётные/простые числа
-    (выбор производится передачей дополнительного аргумента)
-
-    >>> filter_numbers([1, 2, 3], ODD)
-    <<< [1, 3]
-    >>> filter_numbers([2, 3, 4, 5], EVEN)
-    <<< [2, 4]
-    """
+def filter_numbers(number,func):
+    if func == PRIME:
+        return is_prime(number)
+    if func == ODD:
+        return list(filter(lambda x: x%2!=0, number))
+    if func == EVEN:
+        return list(filter(lambda x: x%2==0, number))

@@ -14,7 +14,7 @@ class Vehicle(ABC):
         self.fuel_consumption = fuel_consumption
 
     def start(self):
-        if not self.started and self.fuel < 0:
+        if not self.started and self.fuel > 0:
             self.started = True
             return
         raise LowFuelError

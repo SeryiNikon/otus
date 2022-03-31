@@ -3,6 +3,8 @@ from homework_02.exceptions import CargoOverload
 """
 создайте класс `Plane`, наследник `Vehicle`
 """
+
+
 class Plane(Vehicle):
     max_cargo = 0
     cargo = 0

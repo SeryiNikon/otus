@@ -2,22 +2,16 @@ from homework_02.exceptions import LowFuelError, NotEnoughFuel
 from abc import ABC
 
 
-class Vehicle(ABC):
-    weight = 0
-    started = False
-    fuel = 0
-    fuel_consumption = 0
-
-    def __init__(self, weight=weight, fuel=fuel, fuel_consumption=fuel_consumption):
+class TestVehicle(ABC):
+    def __init__(self, weight=1000, fuel=50):
+        super().__init__()
         self.weight = weight
         self.fuel = fuel
-        self.fuel_consumption = fuel_consumption
+        self.started = False
 
-    def start(self):
-        if self.fuel > 0:
-            self.started = True
-            return
-       raise LowFuelError
+    def __repr__(self):
+        return f'{__class__.__name__} (weight: {self.weight}, ' \
+               f'fuel: {self.fuel}, started: {self.started})'
 
     def move(self, distance):
         max_distance = self.fuel / self.fuel_consumption

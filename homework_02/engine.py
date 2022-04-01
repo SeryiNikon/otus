@@ -7,5 +7,5 @@ create dataclass `Engine`
 
 @dataclass
 class Engine:
-    volume = 0
-    pistons = 0
+    volume: float
+    pistons: int = 4

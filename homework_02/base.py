@@ -8,17 +8,12 @@ class TestVehicle(ABC):
         self.weight = weight
         self.fuel = fuel
         self.started = False
-        
-    def start(self):
-    if not self.started:
-        if self.fuel > 0:
-            self.started = True
-            print('Двигатель заведен')
-        else:
-            raise LowFuelError
-    else:
-        print('Дивгатель уже заведен')
-        
+    
+
+    def __repr__(self):
+        return f'{__class__.__name__} (weight: {self.weight}, ' \
+               f'fuel: {self.fuel}, started: {self.started})'
+    
         
     def move(self, distance):
         max_distance = self.fuel / self.fuel_consumption

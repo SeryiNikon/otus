@@ -1,4 +1,4 @@
-from homework_02.base import Vehicle
+from homework_02.base import TestVehicle
 from homework_02.exceptions import CargoOverload
 
 
@@ -7,7 +7,7 @@ from homework_02.exceptions import CargoOverload
 """
 
 
-class Plane(Vehicle):
+class Plane(TestVehicle):
     max_cargo = 0
     cargo = 0
 

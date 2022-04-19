@@ -2,7 +2,7 @@ from homework_02.exceptions import LowFuelError, NotEnoughFuel
 from abc import ABC
 
 
-class TestVehicle(ABC):
+class Vehicle(ABC):
     def __init__(self, weight=1000, fuel=50):
         super().__init__()
         self.weight = weight

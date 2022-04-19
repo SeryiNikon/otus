@@ -10,9 +10,12 @@ class TestVehicle(ABC):
         self.started = False
     
 
-    def __repr__(self):
-        return f'{__class__.__name__} (weight: {self.weight}, ' \
-               f'fuel: {self.fuel}, started: {self.started})'
+    def start(self):
+        if not self.started:
+            if self.fuel > 0:
+                self.started = True
+            else:
+                raise exceptions.LowFuelError()
     
         
     def move(self, distance):

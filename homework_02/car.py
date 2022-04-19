@@ -1,14 +1,9 @@
 from homework_02.base import Vehicle
-
-"""
-создайте класс `Car`, наследник `Vehicle`
-"""
+from homework_02.engine import Engine
 
 
 class Car(Vehicle):
-
-    def __init__(self):
-        self.engine = None
+    engine: Engine
 
     def set_engine(self, engine):
         self.engine = engine

@@ -1,11 +1,7 @@
 from dataclasses import dataclass
 
-"""
-create dataclass `Engine`
-"""
 
-
-@dataclass
+@dataclass()
 class Engine:
-    volume: float
+    volume: float = 1.8
     pistons: int = 4

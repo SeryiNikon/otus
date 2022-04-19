@@ -15,7 +15,7 @@ class TestVehicle(ABC):
             if self.fuel > 0:
                 self.started = True
             else:
-                raise exceptions.LowFuelError()
+                raise LowFuelError()
     
         
     def move(self, distance):

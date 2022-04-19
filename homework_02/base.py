@@ -1,26 +1,28 @@
-from homework_02.exceptions import LowFuelError, NotEnoughFuel
 from abc import ABC
+import homework_02.exceptions as exceptions
 
 
 class Vehicle(ABC):
-    def __init__(self, weight=1000, fuel=50):
-        super().__init__()
+    weight: int = 1300
+    started: bool = False
+    fuel: int = 0
+    fuel_consumption: int = 8
+
+    def __init__(self, weight, fuel, fuel_consumption):
         self.weight = weight
         self.fuel = fuel
-        self.started = False
-    
+        self.fuel_consumption = fuel_consumption
 
     def start(self):
         if not self.started:
             if self.fuel > 0:
                 self.started = True
             else:
-                raise LowFuelError
-    
-        
+                raise exceptions.LowFuelError()
+
     def move(self, distance):
-        max_distance = self.fuel / self.fuel_consumption
-        if distance <= max_distance:
-            self.fuel = self.fuel - distance * self.fuel_consumption
-            return
-        raise NotEnoughFuel
+        fuel_required = distance * self.fuel_consumption
+        if self.fuel >= fuel_required:
+            self.fuel -= fuel_required
+        else:
+            raise exceptions.NotEnoughFuel()

@@ -1,3 +1,5 @@
+"""uvicorn app:app --reload"""
+
 FROM python:3.9-buster
 RUN pip install fastapi uvicorn
 COPY app.py app.py

@@ -1,4 +1,4 @@
-"""uvicorn app:app --reload"""
+"""uvicorn app:app --port=8000"""
 
 FROM python:3.9-buster
 RUN pip install fastapi uvicorn

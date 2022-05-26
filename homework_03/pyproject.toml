@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "blogprojekt"
+name = "blogproject"
 version = "1.0.0"
 description = "homework 03"
 authors = ["sergey <serzh.nikonov.90@list.ru>"]

@@ -2,7 +2,7 @@
 
 app = FastAPI()
 
-@app.get("/ping/")
+@app.get("/ping")
 def root():
     return {"message": "pong"}
 

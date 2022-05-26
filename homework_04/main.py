@@ -12,9 +12,30 @@
   (используйте полученные из запроса данные, передайте их в функцию для добавления в БД)
 - закрытие соединения с БД
 """
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
+
+from models import Base, User
 
 
 async def async_main():
+    engine = create_async_engine(
+        "postgresql+asyncpg://postgres:password@localhost/postgres",
+        echo=True,
+    )
+
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.drop_all)
+        await conn.run_sync(Base.metadata.create_all)
+
+    async def create_user(session: AsyncSession, username: str) -> User:
+        user = User(username=username)
+        print("create user", user)
+        session.add(user)
+
+        await session.commit()
+        return user
+
+
     pass
 
 

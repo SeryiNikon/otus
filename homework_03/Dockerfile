@@ -1,17 +1,16 @@
-FROM python:3.9.12-buster
+FROM python:3.9-buster
 
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONUNBUFFEREND=1
 
-WORKDIR /app
+WORKDIR /var/ping
 
-RUN pip install poetry==1.1.13
+RUN pip install poetry
 RUN poetry config virtualenvs.create false
 
-COPY pyproject.toml poetry.lock ./
+COPY poetry.lock pyproject.toml ./
 RUN poetry install
-
-COPY blogproject .
+COPY ping .
 
 EXPOSE 8000
 
-CMD ["uvicorn", "app:app", "--host=0.0.0.0", "--port=8000"]
+CMD ["uvicorn", "ping:app", "--reload", "--host=0.0.0.0", "--port=8000"]

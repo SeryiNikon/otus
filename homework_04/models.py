@@ -9,17 +9,15 @@
 """
 
 import os
-from distutils.command.config import config
-from tokenize import String
 
-from sqlalchemy import Integer, Column
+from sqlalchemy import Integer, Column, String
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
 PG_CONN_URI = os.environ.get("SQLALCHEMY_PG_CONN_URI") or "postgresql+asyncpg://postgres:password@localhost/postgres"
 async_engine = create_async_engine(
-    config.PG_CONN_URI,
+    PG_CONN_URI,
     echo=True,
 )
 
@@ -38,8 +36,7 @@ class User(Base):
     name = Column(String(100), nullable=False)
     username = Column(String(100), nullable=False)
     email = Column(String(100), nullable=False)
-    Posts = relationship("Post")
-    #dl = relationship('Post', backref='User', uselist=False)
+    posts = relationship("Post", back_populates="user")
 
 
 class Post(Base):
@@ -47,4 +44,4 @@ class Post(Base):
     user_id = Column(Integer, primary_key=True)
     title = Column(String(100), nullable=False)
     body = Column(String(100), nullable=False)
-
+    user = relationship("User", back_populates="posts")

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "poetry-demo"
 version = "0.1.0"
-description = "homework_03"
+description = ""
 authors = ["sergey <serzh.nikonov.90@list.ru>"]
 
 [tool.poetry.dependencies]

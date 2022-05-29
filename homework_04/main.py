@@ -44,10 +44,8 @@ async def create_user(session: AsyncSession, username: str) -> User:
     await session.commit()
     return user
 
-asyncio.run(async_main())
-
 def main():
-    pass
+    asyncio.run(async_main())
 
 
 if __name__ == "__main__":

@@ -1,8 +1,10 @@
 FROM python:3.9-buster
 
+LABEL Что бы запустить нужно выполнить команду: docker run -it -p 8000:8000 app
+
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app
+WORKDIR /homework_03
 
 RUN pip install poetry==1.1.13
 RUN poetry config virtualenvs.create false
@@ -10,7 +12,7 @@ RUN poetry config virtualenvs.create false
 COPY pyproject.toml poetry.lock ./
 RUN poetry install
 
-COPY ping .
+COPY . .
 
 EXPOSE 8000
 

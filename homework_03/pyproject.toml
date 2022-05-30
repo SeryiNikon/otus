@@ -2,7 +2,7 @@
 name = "poetry-homework03"
 version = "0.1.0"
 description = ""
-authors = ["disugiske <disugiske@yandex.ru>"]
+authors = ["yourname <yourname@yandex.ru>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

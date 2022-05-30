@@ -6,6 +6,9 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+fastapi = "^0.75.1"
+uvicorn = "^0.17.6"
+docker = "^5.0.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

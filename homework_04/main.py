@@ -47,7 +47,6 @@ async def create_users(session: AsyncSession):
                          #user_id=list_data.get('id')
                         )
                     )
-    await session.commit()
 
     for post_dict_data in posts_data:
         session.add(Post(user_id=post_dict_data.get('userId'),
@@ -55,7 +54,6 @@ async def create_users(session: AsyncSession):
                          body=post_dict_data.get('body')
                          )
                     )
-    await session.commit()
 
 
 async def async_main():

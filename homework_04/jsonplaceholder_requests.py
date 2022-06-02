@@ -21,13 +21,3 @@ async def get_posts() -> Dict:
         async with session.get(POSTS_DATA_URL) as resp:
             postdata: dict = await resp.json()
             return postdata
-
-#async def fetch_json(url):
-#    async with aiohttp.ClientSession() as session:
-#        async with session.get(url) as response:
-#            return await response.json()
-
-
-#if __name__ == '__main__':
-#    asyncio.run(fetch_json(USERS_DATA_URL))
-#    asyncio.run(fetch_json(POSTS_DATA_URL))

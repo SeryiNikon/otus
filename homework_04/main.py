@@ -25,16 +25,7 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    # users_data, posts_data = await asyncio.gather(fetch_json(USERS_DATA_URL), fetch_json(POSTS_DATA_URL))
-    # async with Session() as session:
-    # async with session.begin():
-    # for user in users_data:
-    # session.add(User(id=user['id'], name=user['name'], username=user['username'], email=user['email']))
-    # for post in posts_data:
-    # var = Post(id=post['id'], user_id=post['userId'], title=post['title'], body=post['body'])
-    # session.add(var)
-
-
+    
 async def create_users(session: AsyncSession):
     users_data: List[dict]
     posts_data: List[dict]
@@ -63,13 +54,6 @@ async def create_users(session: AsyncSession):
             await async_main()
             await create_users(session)
 
-
-# async def create_user(session: AsyncSession, username: str) -> User:
-#    user = User(username=username)
-#    print("create user", user)
-#    session.add(user)
-#    await session.commit()
-#    return user
 
 
 def main():

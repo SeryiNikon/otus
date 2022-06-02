@@ -21,10 +21,8 @@ async_engine = create_async_engine(
     echo=True,
 )
 
-#Base = None
 Base = declarative_base(async_engine)
 
-#Session = None
 async_session = sessionmaker(
     async_engine,
     expire_on_commit=False,
@@ -45,3 +43,4 @@ class Post(Base):
     title = Column(String(100), nullable=False)
     body = Column(String(100), nullable=False)
     user = relationship("User", back_populates="posts")
+    

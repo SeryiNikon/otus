@@ -1,7 +1,6 @@
 """
 Домашнее задание №4
 Асинхронная работа с сетью и бд
-
 доработайте функцию main, по вызову которой будет выполняться полный цикл программы
 (добавьте туда выполнение асинхронной функции async_main):
 - создание таблиц (инициализация)
@@ -13,13 +12,12 @@
 - закрытие соединения с БД
 """
 import asyncio
+from typing import List
 
-from requests import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from jsonplaceholder_requests import USERS_DATA_URL, fetch_json, POSTS_DATA_URL
-from models import Base, User, async_engine, Post
-
+from jsonplaceholder_requests import get_userdata, get_posts
+from models import Base, User, async_engine, Post, async_session
 
 
 async def async_main():
@@ -27,22 +25,52 @@ async def async_main():
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    users_data, posts_data = await asyncio.gather(fetch_json(USERS_DATA_URL), fetch_json(POSTS_DATA_URL))
-    async with Session() as session:
-        async with session.begin():
-            for user in users_data:
-                session.add(User(id=user['id'], name=user['name'], username=user['username'], email=user['email']))
-            for post in posts_data:
-                var = Post(id=post['id'], user_id=post['userId'], title=post['title'], body=post['body'])
-                session.add(var)
+    # users_data, posts_data = await asyncio.gather(fetch_json(USERS_DATA_URL), fetch_json(POSTS_DATA_URL))
+    # async with Session() as session:
+    # async with session.begin():
+    # for user in users_data:
+    # session.add(User(id=user['id'], name=user['name'], username=user['username'], email=user['email']))
+    # for post in posts_data:
+    # var = Post(id=post['id'], user_id=post['userId'], title=post['title'], body=post['body'])
+    # session.add(var)
 
 
-async def create_user(session: AsyncSession, username: str) -> User:
-    user = User(username=username)
-    print("create user", user)
-    session.add(user)
-    await session.commit()
-    return user
+async def create_users(session: AsyncSession):
+    users_data: List[dict]
+    posts_data: List[dict]
+    users_data, posts_data = await asyncio.gather(
+        get_userdata(),
+        get_posts(),
+    )
+    for list_data in users_data:
+        session.add(User(name=list_data.get('name'),
+                         username=list_data.get('username'),
+                         email=list_data.get('email'),
+                         )
+                    )
+        await session.commit()
+
+        for post_dict_data in posts_data:
+            session.add(Post(user_id=post_dict_data.get('userId'),
+                             title=post_dict_data.get('title'),
+                             body=post_dict_data.get('body')
+                             )
+                        )
+        await session.commit()
+
+    async def async_main():
+        async with async_session() as session:
+            await async_main()
+            await create_users(session)
+
+
+# async def create_user(session: AsyncSession, username: str) -> User:
+#    user = User(username=username)
+#    print("create user", user)
+#    session.add(user)
+#    await session.commit()
+#    return user
+
 
 def main():
     asyncio.run(async_main())

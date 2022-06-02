@@ -2,7 +2,7 @@ FROM python:3.9-buster
 
 ENV PYTHONUNBUFFERED=1
 
-WORKDIR /homework_03
+WORKDIR /app
 
 RUN pip install poetry==1.1.13
 RUN poetry config virtualenvs.in-create false

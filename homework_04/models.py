@@ -39,7 +39,7 @@ class User(Base):
 
 class Post(Base):
     __tablename__ = 'Posts'
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     title = Column(String(100), nullable=False)
     body = Column(String(100), nullable=False)
     user = relationship("User", back_populates="posts")

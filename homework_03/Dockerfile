@@ -8,7 +8,7 @@ RUN pip install poetry==1.1.13
 RUN poetry config virtualenvs.in-create false
 
 COPY project.toml poetry.lock ./
-run poetry install
+RUN poetry install
 
 COPY . .
 

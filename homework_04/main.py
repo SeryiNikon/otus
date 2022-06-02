@@ -48,11 +48,10 @@ async def create_users(session: AsyncSession):
                              )
                         )
 
-
-    async def async_main():
-        async with async_session() as session:
-            await async_main()
-            await create_users(session)
+async def async_main():
+    async with async_session() as session:
+        await async_main()
+        await create_users(session)
 
 
 

@@ -15,17 +15,24 @@ import asyncio
 from typing import List
 
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import sessionmaker
 
-from jsonplaceholder_requests import get_userdata, get_posts
-from models import Base, User, async_engine, Post, async_session
+from homework_04.jsonplaceholder_requests import get_userdata, get_posts
+from homework_04.models import Base, engine, User, Session, Post
+
+async_session = sessionmaker(
+    engine,
+    expire_on_commit=False,
+    class_=AsyncSession,
+)
 
 
-async def async_main():
-    async with async_engine.begin() as conn:
+async def init_table():
+    async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
-    
+
 async def create_users(session: AsyncSession):
     users_data: List[dict]
     posts_data: List[dict]
@@ -37,22 +44,24 @@ async def create_users(session: AsyncSession):
         session.add(User(name=list_data.get('name'),
                          username=list_data.get('username'),
                          email=list_data.get('email'),
+                         #user_id=list_data.get('id')
+                        )
+                    )
+    await session.commit()
+
+    for post_dict_data in posts_data:
+        session.add(Post(user_id=post_dict_data.get('userId'),
+                         title=post_dict_data.get('title'),
+                         body=post_dict_data.get('body')
                          )
                     )
-        
+    await session.commit()
 
-        for post_dict_data in posts_data:
-            session.add(Post(user_id=post_dict_data.get('userId'),
-                             title=post_dict_data.get('title'),
-                             body=post_dict_data.get('body')
-                             )
-                        )
 
-    async def async_main():
-        async with async_session() as session:
-            await async_main()
-            await create_users(session)
-
+async def async_main():
+    async with async_session() as session:
+        await init_table()
+        await create_users(session)
 
 
 def main():

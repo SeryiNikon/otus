@@ -18,8 +18,8 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
-    path('/', PostListView.as_view(), name='post-list'),
-    path('/<slug:slug>/', PostDetailView.as_view(), name='article-detail'),
+    path('', PostListView.as_view(), name='post-list'),
+    path('<slug:slug>/', PostDetailView.as_view(), name='article-detail'),
     
     path('admin/', admin.site.urls),
 ]

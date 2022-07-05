@@ -1,0 +1,10 @@
+{% extends "blog/index.html" %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+<p>{{ object.text }}</p>
+<p>author: {{ object.author }}</p>
+<p>published_date: {{ object.published_date|date }}</p>
+<p>create_date: {{ now|date }}</p>
+    <input type="button" onclick="history.back();" value="Назад"/>
+{% endblock %}

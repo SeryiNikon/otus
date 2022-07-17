@@ -48,5 +48,5 @@ class PostTest(TestCase):
         self.assertEquals(only_post.created_date.second, post.created_date.second)
 
 
-    if __name__ == '__main__':
-        unittest.main(verbosity=2)
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
